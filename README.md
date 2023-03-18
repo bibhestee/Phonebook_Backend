@@ -10,12 +10,12 @@
 
 ## Starting the Server
   ### To start the server, use:
-        ` npm run dev ` for development mode
-        or
-        ` npm start `
+     ` npm run dev ` for development mode
+     or
+     ` npm start `
 
 ## Endpoints
 
 
 
-Code by - (Bibest)[https://github.com/bibhestee]
+Code by - [Bibest](https://github.com/bibhestee)

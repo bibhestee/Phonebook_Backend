@@ -16,6 +16,20 @@
 
 ## Endpoints
 
+  ### Home Endpoint
+  GET '/api/persons' - Get all the contacts from the phonebook
+
+  ### Info Endpoint
+  GET /info' - Get information about the contacts and time of request
+
+  ### Single Contact Endpoint
+  GET '/api/persons/:id' - Get contact details
+
+  ### Delete Contact Endpoint
+  DELETE '/api/persons/:id' - Delete contact details
+
+  ### Create Contact Endpoint
+  POST '/api/persons' - Create contact details
 
 
-Code by - [Bibest](https://github.com/bibhestee)
+Code by - [Bibest](https://github.com/bibhestee)😎

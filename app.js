@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const app = express()
 
@@ -9,6 +10,7 @@ morgan.token('data', (req, res) => {return JSON.stringify(req.body)})
 // Middlewares
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
+app.use(cors()) // Cors Allows request from All origins i.e FE-3000 , BE-3001 ✔
 
 // Hardcoded data
 let data = [
@@ -93,7 +95,9 @@ app.post('/api/persons', (req, res) => {
     : res.json(newPerson); data = data.concat(newPerson)
     
 })
-const PORT = 3001
 
-app.listen(PORT)
-console.log(`Server listening on ${PORT}`)
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})

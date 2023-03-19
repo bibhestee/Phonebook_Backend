@@ -1,7 +1,14 @@
 const express = require('express');
+const morgan = require('morgan');
+
 const app = express()
 
+// Create new token - Logging of Post request datas
+morgan.token('data', (req, res) => {return JSON.stringify(req.body)})
+
+// Middlewares
 app.use(express.json())
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
 // Hardcoded data
 let data = [

@@ -1,0 +1,92 @@
+const express = require('express');
+const app = express()
+
+app.use(express.json())
+
+// Hardcoded data
+let data = [
+    { 
+      "id": 1,
+      "name": "Arto Hellas", 
+      "number": "040-123456"
+    },
+    { 
+      "id": 2,
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523"
+    },
+    { 
+      "id": 3,
+      "name": "Dan Abramov", 
+      "number": "12-43-234345"
+    },
+    { 
+      "id": 4,
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122"
+    }
+]
+
+// Home Endpoint - GET
+app.get('/api/persons', (req, res) => {
+    res.json(data)
+});
+
+// Info Endpoint - GET
+/* This endpoint shows the time that the request was received 
+ and how many entries are in the phonebook at the time of processing the request. */
+app.get('/info', (req, res) => {
+    const total = data.length
+    res.send(`<p>Phonebook has info for ${total} people</p>
+    <p>${Date()}</p>`)
+})
+
+// Single Phonebook Entry - GET
+app.get('/api/persons/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const person = data.find(p => p.id === id)
+    if (!person) {
+        res.sendStatus(404)
+    } else {
+        res.json(person)
+    }
+})
+
+// Delete Single Entry Endpoint - Delete
+app.delete('/api/persons/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const contacts = data.filter(p => p.id !== id)
+    res.sendStatus(204).end()
+})
+
+// Create Phonebook Endpoint - POST
+const generateId = () => {
+    return Math.floor(Math.random() * 1000)
+}
+
+app.post('/api/persons', (req, res) => {
+    const person = req.body
+
+    // Handles error if name/number is not specified
+    if (!person.name || !person.number) {
+        return res.status(400).json({
+            error: 'name/number missing'
+        })
+    } 
+
+    const newPerson = {
+        name: person.name,
+        number: person.number,
+        id: generateId()
+    }
+
+    // Handles error if name already exist in the phonebook
+    data.find(item => item.name === person.name)
+    ? res.status(400).json({error: 'name must be unique'})
+    : res.json(newPerson); data = data.concat(newPerson)
+    
+})
+const PORT = 3001
+
+app.listen(PORT)
+console.log(`Server listening on ${PORT}`)

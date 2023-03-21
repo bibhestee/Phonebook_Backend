@@ -31,5 +31,10 @@
   ### Create Contact Endpoint
   POST '/api/persons' - Create contact details
 
+  ### Update Contact Endpoint
+  PUT '/api/persons/:id' - Update contact details
+
+
+[Phonebook](https://phonebook-nodejs.fly.dev/)
 
 Code by - [Bibest](https://github.com/bibhestee)😎
